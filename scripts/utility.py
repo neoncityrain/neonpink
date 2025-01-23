@@ -71,13 +71,14 @@ def get_alive_clan_queens(living_cats):
                 living_kits.remove(cat)
     return queen_dict, living_kits
 
-def get_alive_status_cats(Cat, get_status: list, working: bool = False, sort: bool = False) -> list:
+def get_alive_status_cats(Cat, get_status: list, working: bool = False, sort: bool = False, includePlayer = True) -> list:
     """
     returns a list of cat objects for all living cats of get_status in Clan
     :param Cat Cat: Cat class
     :param list get_status: list of statuses searching for
     :param bool working: default False, set to True if you would like the list to only include working cats
     :param bool sort: default False, set to True if you would like list sorted by descending moon age
+    :param bool includePlayer: default True, set to False if you want to exclude the player
     """
 
     alive_cats = [i for i in Cat.all_cats.values() if i.status in get_status and not i.dead and not i.outside]
@@ -87,6 +88,9 @@ def get_alive_status_cats(Cat, get_status: list, working: bool = False, sort: bo
 
     if sort:
         alive_cats = sorted(alive_cats, key=lambda cat: cat.moons, reverse=True)
+
+    if not includePlayer and game.clan.your_cat in alive_cats:
+        alive_cats.remove(game.clan.your_cat)
 
     return alive_cats
 

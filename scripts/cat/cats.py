@@ -333,9 +333,9 @@ class Cat:
         else:
             if status in ['newborn', 'rival newborn']:
                 self.age = 'newborn'
-            elif status == ['kitten', 'rival kitten']:
+            elif status in ['kitten', 'rival kitten']:
                 self.age = 'kitten'
-            elif status == ['elder', 'rival elder']:
+            elif status in ['elder', 'rival elder']:
                 self.age = 'senior'
             elif status in ['apprentice', 'mediator apprentice', 'medicine cat apprentice', "queen's apprentice",
                             'rival apprentice', 'rival mediator apprentice', 'rival medicine cat apprentice',
@@ -353,6 +353,7 @@ class Cat:
                             "rival mediator apprentice", "rival medicine cat", "rival mediator",
                             "rival deputy", "rival leader")]:
                 self.outClan=1
+                # other clans can only use the first outclan at the moment. this should be changed!
 
         # backstory
         if self.backstory is None:
@@ -751,6 +752,7 @@ class Cat:
                 event_text = event_text + f"and, after a Clan meeting is held, it's decided that they will be allowed back in."
                 exiled_cat.exiled = False
                 Cat.add_to_clan(exiled_cat)
+
                 if exiled_cat.moons > 119:
                     exiled_cat.status = "elder"
                 elif exiled_cat.moons > 12:

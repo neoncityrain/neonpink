@@ -1582,7 +1582,7 @@
             "lifegen"
         ],
         "tags": [
-            "bloodthirsty_only"
+            "bloodthirsty-mentor"
         ],
         "patrol_art": "patrolartapp_clawsout",
         "min_cats": 2,

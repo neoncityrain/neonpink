@@ -8,7 +8,14 @@ from scripts.cat.history import History
 from scripts.event_class import Single_Event
 
 from .Screens import Screens
-from scripts.utility import get_text_box_theme, scale, process_text, pronoun_repl
+from scripts.utility import (
+    get_text_box_theme, 
+    scale, 
+    process_text, 
+    pronoun_repl, 
+    # neonpink!
+    get_alive_status_cats
+    )
 from scripts.cat.cats import Cat, INJURIES
 from scripts.game_structure import image_cache
 from scripts.game_structure.ui_elements import UIImageButton, UISpriteButton
@@ -1064,8 +1071,10 @@ class MurderScreen(Screens):
         if self.method == "attack":
             chance += 5
         elif self.method == "poison":
-            if you.status not in ["medicine cat", "medicine cat apprentice"]:
-                chance += 1
+            if you.status != "medicine cat":
+                chance += 2
+            elif you.status == "medicine cat apprentice":
+                chance += 1 # since medicine cats are still in training
         elif self.method == "accident":
             chance += 8
         elif self.method == "predator":
@@ -1204,8 +1213,21 @@ class MurderScreen(Screens):
 
             if cat_to_murder.status == "warrior" and cat_healthy:
                 chance += 15
-            if you.status in ["mediator", "mediator apprentice", "queen", "queen's apprentice", "medicine cat", "medicine cat apprentice", "kitten"]:
+                
+            if you.status == "kitten":
+                chance += 20
+            if you.status in [
+                 "mediator apprentice", "medicine cat apprentice"
+                ]:
+                chance += 15
+            elif you.status in [
+                "mediator", "medicine cat", "queen's apprentice"
+                ]:
                 chance += 10
+            elif you.status in [
+                 "queen", "apprentice"
+                 ]:
+                chance += 5
 
             if "avid play-fighter" in their_skills:
                 chance += 8
@@ -1340,8 +1362,10 @@ class MurderScreen(Screens):
                 owie = "poisoned"
                 owie2 = "poisoned"
             elif self.method == "accident":
-                owie = choice(["broken bone","broken bone","broken bone","sprain", "sore", "bruises", "scrapes", "paralyzed", "head damage", "broken jaw"])
-                owie2 = choice(["broken bone","broken bone","broken bone","sprain", "sore", "bruises", "scrapes", "paralyzed", "head damage", "broken jaw"])
+                owie = choice(["broken bone","broken bone","broken bone","sprain", "sore", "bruises", "scrapes",
+                               "paralyzed", "head damage", "broken jaw"])
+                owie2 = choice(["broken bone","broken bone","broken bone","sprain", "sore", "bruises", "scrapes",
+                                "paralyzed", "head damage", "broken jaw"])
             elif self.method == "predator":
                 owie = choice(["bite-wound", "broken bone", "torn pelt", "mangled leg", "mangled tail"])
                 owie2 = choice(["bite-wound", "broken bone", "torn pelt", "mangled leg", "mangled tail"])
@@ -1417,7 +1441,7 @@ class MurderScreen(Screens):
                     if "any" not in murder_dict["victim_status"]:
                         continue
 
-            if "relatonship" in murder_dict and murder_dict["relationship"]:
+            if "relationship" in murder_dict and murder_dict["relationship"]:
                 if "mates" in murder_dict["relationship"]:
                     if cat_to_murder not in you.mates:
                         continue
@@ -1621,9 +1645,13 @@ class MurderScreen(Screens):
         if discovered:
             if accomplice and accompliced:
                 if game.clan.your_cat.dead:
-                    game.cur_events_list.insert(1, Single_Event("You and " + str(accomplice.name) + " murdered " + str(cat_to_murder.name) + ", but only your accomplice made it out alive."))
+                    game.cur_events_list.insert(1, Single_Event(
+                        "You and " + str(accomplice.name) + " murdered " + str(cat_to_murder.name) +
+                        ", but only your accomplice made it out alive."))
                 else:
-                    game.cur_events_list.insert(1, Single_Event("You successfully murdered "+ str(cat_to_murder.name) + " with the help of " + str(accomplice.name) + "."))
+                    game.cur_events_list.insert(1, Single_Event(
+                            "You successfully murdered "+ str(cat_to_murder.name) + " with the help of " +
+                            str(accomplice.name) + "."))
                 History.add_death(cat_to_murder, f"{you.name} and {accomplice.name} murdered this cat.")
                 History.add_murders(cat_to_murder, accomplice, True, f"{you.name} murdered this cat along with {accomplice.name}.")
                 History.add_murders(cat_to_murder, you, True, f"{you.name} murdered this cat with the help of {accomplice.name}.")
@@ -1647,14 +1675,21 @@ class MurderScreen(Screens):
         else:
             if accomplice:
                 if accompliced:
-                    History.add_death(cat_to_murder, f"{you.name} and {accomplice.name} murdered this cat.")
-                    History.add_murders(cat_to_murder, you, True, f"{you.name} murdered this cat along with {accomplice.name}.")
-                    History.add_murders(cat_to_murder, accomplice, True, f"{you.name} murdered this cat along with {accomplice.name}.")
+                    History.add_death(
+                        cat_to_murder, f"{you.name} and {accomplice.name} murdered this cat.")
+                    History.add_murders(
+                        cat_to_murder, you, True, f"{you.name} murdered this cat along with {accomplice.name}.")
+                    History.add_murders(
+                        cat_to_murder, accomplice, True, f"{you.name} murdered this cat along with {accomplice.name}.")
                     
                     if game.clan.your_cat.dead:
-                        game.cur_events_list.insert(1, Single_Event("You and " + str(accomplice.name) + " successfully murdered " + str(self.cat_to_murder.name) + " at the cost of your own life. It seems that no cat knows the truth."))
+                        game.cur_events_list.insert(1, Single_Event(
+                            "You and " + str(accomplice.name) + " successfully murdered " + str(self.cat_to_murder.name) + 
+                            " at the cost of your own life. It seems that no cat knows the truth."))
                     else:
-                        game.cur_events_list.insert(1, Single_Event("You successfully murdered "+ str(cat_to_murder.name) + " along with " + str(accomplice.name) + ". It seems no one is aware of your actions."))
+                        game.cur_events_list.insert(1, Single_Event(
+                            "You successfully murdered "+ str(cat_to_murder.name) + " along with " + str(accomplice.name) + 
+                            ". It seems no one is aware of your actions."))
 
                     if game.clan.your_cat.dead:
                         accomplice.get_injured("guilt")
@@ -1672,17 +1707,26 @@ class MurderScreen(Screens):
                     History.add_murders(cat_to_murder, you, True, f"{you.name} murdered this cat.")
                     
                     if game.clan.your_cat.dead:
-                        game.cur_events_list.insert(1, Single_Event("You successfully murdered "+ str(cat_to_murder.name) + " at the cost of your own life. " + str(accomplice.name) + " chose not to help. It seems that no cat knows the truth."))
+                        game.cur_events_list.insert(1, Single_Event(
+                            "You successfully murdered "+ str(cat_to_murder.name) + 
+                            " at the cost of your own life. " + str(accomplice.name) + 
+                            " chose not to help. It seems that no other cat knows the truth."))
                     else:
-                        game.cur_events_list.insert(1, Single_Event("You successfully murdered "+ str(cat_to_murder.name) + " but " + str(accomplice.name) + " chose not to help. It seems no one is aware of your actions."))
+                        game.cur_events_list.insert(1, Single_Event(
+                            "You successfully murdered "+ str(cat_to_murder.name) + " but " + str(accomplice.name) + 
+                            " chose not to help. It seems no one is aware of your actions."))
             else:
                 History.add_death(cat_to_murder, f"{you.name} murdered this cat.")
                 History.add_murders(cat_to_murder, you, True, f"{you.name} murdered this cat.")
                 
                 if game.clan.your_cat.dead:
-                    game.cur_events_list.insert(1, Single_Event("You successfully murdered "+ str(cat_to_murder.name) + " at the cost of your own life. It seems that no cat knows the truth."))
+                    game.cur_events_list.insert(1, Single_Event(
+                        "You successfully murdered "+ str(cat_to_murder.name) + 
+                        " at the cost of your own life. It seems that no cat knows the truth."))
                 else:
-                    game.cur_events_list.insert(1, Single_Event("You successfully murdered "+ str(cat_to_murder.name) + ". It seems no one is aware of your actions."))
+                    game.cur_events_list.insert(1, Single_Event(
+                        "You successfully murdered "+ str(cat_to_murder.name) + 
+                        ". It seems no one is aware of your actions."))
 
         self.stage = "choose murder cat"
         
@@ -1703,10 +1747,43 @@ class MurderScreen(Screens):
         if punishment_chance == 1:
             if accomplice and not accompliced:
                 a_s = randint(1,2)
-                if a_s == 1 and accomplice.status != "leader":
-                    game.cur_events_list.insert(2, Single_Event(f"Shocked at your request to be an accomplice to murder, {accomplice.name} reports your actions to the Clan leader."))
+                if (a_s == 1): # if the accomplice decides to tattle on the player
+                    randomstring = randint(0,4)
+                    if (randomstring == 0 and accomplice.status != "leader" and
+                    get_alive_status_cats(Cat, ["leader"], includePlayer=False)
+                    # makes sure there IS a leader to report to, because otherwise that's awkward.
+                    ):
+                        game.cur_events_list.insert(2, Single_Event(
+                        f"Shocked at your request to be an accomplice to murder, " +
+                        "{accomplice.name} reports your actions to " + (str(game.clan.leader.name)) + ".")
+                        # using the leader's name makes it a tad more personal. teehee!
+                        )
+                    elif randomstring == 0: # but no leader!
+                        game.cur_events_list.insert(2, Single_Event(
+                        f"Stunned by your request to be an accomplice to murder, " +
+                        "{accomplice.name} reports your actions to the rest of the clan.")
+                        )
+                    elif randomstring == 1:
+                        game.cur_events_list.insert(2, Single_Event(
+                        f"When you suggested {accomplice.name} help you," + # PRONOUNS PLEASSSSSE...............
+                        " {accomplice.name} seemed " +
+                        "on board... until later, when you learned {accomplice.name} talked about you " +
+                        "behind your back. Now the whole clan knows what you've done.")
+                        )
+                    elif randomstring == 2:
+                        game.cur_events_list.insert(2, Single_Event(
+                        f"{accomplice.name} ran around camp, yowling what you did to everyone who'd hear.")
+                        )
+                    else:
+                        game.cur_events_list.insert(2, Single_Event(
+                        f"That rotten {accomplice.name} not only turned you down, but told others what" +
+                        " you had decided to do. It seems trusting them was a mistake.")
+                        )
+                # if you dont die, youre shunned now. sucks to suck
+                # this should be changed in the future- killing abusers should not get you shunned. :3
                 if not you.dead:
                     you.shunned = 1
+
             txt = ""
             if game.clan.your_cat.dead:
                 # if game.clan.your_cat.status in ['kitten', 'leader', 'deputy', 'medicine cat']:
@@ -1933,6 +2010,7 @@ class MurderScreen(Screens):
     def handle_murder_fail(self, you, cat_to_murder, accomplice, accompliced):
         """ handles murders failing and victims becoming accidentally injured/sick as a result """
         c_m = str(cat_to_murder.name)
+        c_m_pronouns = str(cat_to_murder.pronouns)
 
         victim_injury_chance = 8
 
@@ -1953,7 +2031,7 @@ class MurderScreen(Screens):
                 fail_texts = [f"You attempted to murder {c_m}, but your plot was unsuccessful. They appear to be slightly wary of you and {accomplice.name} now.",
                                 f"Your effort to end {c_m}'s life was thwarted, and they now seem a bit more cautious around you and {accomplice.name}.",
                                 f"Despite your intent to murder {c_m}, they remained unscathed. They now look at you and {accomplice.name} with a hint of suspicion.",
-                                f"You and {accomplice.name} tried to kill {c_m}, but they survived. They now seem to watch you both with wary eyes.",
+                                f"You and {accomplice.name} tried to kill " + c_m + ", but they survived. {PRONOUN/c_m/subject} now {VERB/v_c/seem/seems} to watch you both with wary eyes.",
                                 f"Your plot to murder {c_m} fell through, and they remain alive, now showing signs of mild suspicion towards you and {accomplice.name}."]
                 cat_to_murder.relationships[you.ID].dislike += randint(1,20)
                 cat_to_murder.relationships[you.ID].platonic_like -= randint(1,15)

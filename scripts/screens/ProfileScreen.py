@@ -3806,9 +3806,9 @@ class ProfileScreen(Screens):
             not self.the_cat.outside and (
                 game.clan.your_cat.dead or ((game.clan.your_cat.skills.meets_skill_requirement(SkillPath.STAR) or
                                              game.clan.your_cat.skills.meets_skill_requirement(SkillPath.NPSTARGHOST) or
-              game.clan.your_cat.skills.meets_skill_requirement(SkillPath.NPDARKSTAR) or
-              game.clan.your_cat.skills.meets_skill_requirement(SkillPath.NPDEADSPEAKER))
-            and game.clan.your_cat.moons >=1))
+                                             game.clan.your_cat.skills.meets_skill_requirement(SkillPath.NPDARKSTAR) or
+                                             game.clan.your_cat.skills.meets_skill_requirement(SkillPath.NPDEADSPEAKER))
+                                             and game.clan.your_cat.moons >=1))
             )
 
         # They DF
@@ -3842,10 +3842,10 @@ class ProfileScreen(Screens):
             not game.clan.your_cat.df and
             game.clan.your_cat.ID in game.clan.starclan_cats and (self.the_cat.dead or ((
                 self.the_cat.skills.meets_skill_requirement(SkillPath.STAR) or
-              self.the_cat.skills.meets_skill_requirement(SkillPath.NPSTARGHOST) or
-              self.the_cat.skills.meets_skill_requirement(SkillPath.NPDARKSTAR) or
-              self.the_cat.skills.meets_skill_requirement(SkillPath.NPDEADSPEAKER)) and
-              self.the_cat.moons >= 1))
+                self.the_cat.skills.meets_skill_requirement(SkillPath.NPSTARGHOST) or
+                self.the_cat.skills.meets_skill_requirement(SkillPath.NPDARKSTAR) or
+                self.the_cat.skills.meets_skill_requirement(SkillPath.NPDEADSPEAKER)) and
+                self.the_cat.moons >= 1))
             )
 
         # you DF
@@ -3854,11 +3854,10 @@ class ProfileScreen(Screens):
             game.clan.your_cat.df and
             (self.the_cat.dead or
             ((self.the_cat.skills.meets_skill_requirement(SkillPath.DARK) or
-            self.the_cat.skills.meets_skill_requirement(SkillPath.NPDARKGHOST) or
-            self.the_cat.skills.meets_skill_requirement(SkillPath.NPDARKSTAR) or
-            self.the_cat.skills.meets_skill_requirement(SkillPath.NPDEADSPEAKER)) and
-            self.the_cat.moons >= 1) or
-            self.the_cat.joined_df)
+              self.the_cat.skills.meets_skill_requirement(SkillPath.NPDARKGHOST) or
+              self.the_cat.skills.meets_skill_requirement(SkillPath.NPDARKSTAR) or
+              self.the_cat.skills.meets_skill_requirement(SkillPath.NPDEADSPEAKER)) and
+              self.the_cat.moons >= 1) or self.the_cat.joined_df)
             )
 
         # You UR

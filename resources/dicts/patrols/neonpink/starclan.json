@@ -8,10 +8,9 @@
             "Any"
         ],
         "types": [
-            "npstarclan"
+            "npsc"
         ],
         "tags": [
-            "border"
         ],
         "patrol_art": "df_starcat",
         "min_cats": 1,

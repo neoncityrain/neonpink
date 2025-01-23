@@ -62,6 +62,7 @@ class Clan:
         "general",
         "exiled",
         "former Clancat",
+        
         # neon pink exclusive below
         "rival Clancat",
         "rival newborn", "rival kitten", "rival apprentice",
@@ -538,7 +539,7 @@ class Clan:
             outsider.history.beginning = None
 
     def populate_rivalclan(self):
-        for i in range(randint(30,50)):
+        for i in range(randint(1,5)):
             randAge = randint(1, 130)
             uncommonStart = randint(1,30)
             if randAge > 5 and uncommonStart != 1:

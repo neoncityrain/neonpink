@@ -25,7 +25,9 @@ from scripts.utility import (
     find_special_list_types,
     filter_relationship_type,
     get_special_snippet_list,
-    adjust_txt
+    adjust_txt,
+    # for neonpink
+    get_alive_status_cats
 )
 from scripts.game_structure.game_essentials import game
 from itertools import combinations
@@ -624,11 +626,6 @@ class Patrol:
             if current_season not in patrol.season and "any" not in patrol.season and "Any" not in patrol.season:
                 continue
 
-            if game.switches["patrol_category"] == 'df':
-                if "you_med" in patrol.tags:
-                    if game.clan.your_cat.status != 'medicine cat':
-                        continue
-                    
             #  correct button check
             if game.switches["patrol_category"] == 'clangen':
                 if patrol_type == "general":
@@ -647,6 +644,10 @@ class Patrol:
 
             if game.switches["patrol_category"] in ['lifegen', 'df', 'date', 'npsc']:
                 if game.switches["patrol_category"] == "df":
+
+                    if "you_med" in patrol.tags and not game.clan.your_cat.status == 'medicine cat':
+                        continue
+                    
                     if len(self.patrol_cats) > 1:
                         other_cat = self.patrol_cats[1]
                         if game.clan.your_cat.joined_df:
@@ -658,13 +659,15 @@ class Patrol:
                                 if "fellowtrainee" not in patrol.tags:
                                     continue
                 else:
-                    if "shunned" in patrol.tags:
-                        if game.clan.your_cat.shunned == 0:
-                            continue
+                    # why is this set to else...??
+                    # maybe move this so that df dialogue can exist.
+                    if "shunned" in patrol.tags and game.clan.your_cat.shunned == 0:
+                        continue
                     
-                    if "shunned" not in patrol.tags and "df" not in patrol.tags:
-                        if game.clan.your_cat.shunned > 0:
-                            continue
+                    if ("shunned" not in patrol.tags and "df" not in patrol.tags
+                        ) and game.clan.your_cat.shunned > 0:
+                        # if shunned, but shunned isnt in the tags, pull from the shunned pool instead.
+                        continue
 
 
                 if game.switches["patrol_category"] == "date":
@@ -675,9 +678,131 @@ class Patrol:
                                 # need both cats to be trainees for goop romance
                                 continue
 
-                if "bloodthirsty_only" in patrol.tags:
-                    if Cat.all_cats.get(game.clan.your_cat.mentor).personality.trait != "bloodthirsty":
+                # renamed this tag to be clearer. previously was "bloodthirsty_only" and only used by one app patrol
+                if "bloodthirsty-mentor" in patrol.tags and Cat.all_cats.get(
+                    game.clan.your_cat.mentor).personality.trait != "bloodthirsty":
                         continue
+                
+
+
+                # neonpink- double checking if certain roles exist for lifegen patrols especially.
+                if "newborns_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "newborn"
+                      ], includePlayer=False):
+                    continue
+                if "kits_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "kitten"
+                      ], includePlayer=False):
+                    continue
+
+                # APPRENTICES
+                if "apprentices_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "apprentice", "mediator apprentice", "medicine cat apprentice", "queen's apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "warrior_apprentices_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "medicine_apprentices_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "medicine cat apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "mediator_apprentices_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "mediator apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "queen_apprentices_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "queen's apprentice"
+                      ], includePlayer=False):
+                    continue
+
+                # ADULTS
+                if "adultroles_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "warrior", "mediator", "medicine cat", "queen", "deputy", "leader", "elder"
+                      ], includePlayer=False):
+                    continue
+                if "full_warriors_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "warrior"
+                      ], includePlayer=False):
+                    continue
+                if "full_mediators_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "mediator"
+                      ], includePlayer=False):
+                    continue
+                if "full_medcats_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "medicine cat"
+                      ], includePlayer=False):
+                    continue
+                if "full_queens_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "queen"
+                      ], includePlayer=False):
+                    continue
+                if "deputy_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "deputy"
+                      ], includePlayer=False):
+                    continue
+                if "leader_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "leader"
+                      ], includePlayer=False):
+                    continue
+                if "elders_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "elder"
+                      ], includePlayer=False):
+                    continue
+
+                # ROLE AND APP ROLE
+                if "warriors_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "warrior", "apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "mediators_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "mediator", "mediator apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "queens_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "queen", "queen's apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "medcats_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "medicine cat", "medicine cat apprentice"
+                      ], includePlayer=False):
+                    continue
+
+                # MISC GROUPS
+                if "workers_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "warrior", "mediator", "medicine cat", "queen", "deputy", "leader",
+                      "apprentice", "mediator apprentice", "medicine cat apprentice", "queen's apprentice"
+                      ], includePlayer=False):
+                    continue
+                if "warrior_or_leadrole_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "warrior", "apprentice", "deputy", "leader"
+                      ], includePlayer=False):
+                    continue
+                if "leader_roles_in_clan" in patrol.tags and not get_alive_status_cats(Cat, [
+                      "deputy", "leader"
+                      ], includePlayer=False):
+                    continue
+                
+                if ("not_alone_in_clan" in patrol.tags
+                    and not get_alive_status_cats(Cat, [
+                      "newborn", "kitten",
+                      "apprentice", "mediator apprentice", "medicine cat apprentice", "queen's apprentice",
+                      "warrior", "mediator", "medicine cat", "queen", "deputy", "leader",
+                      "elder"
+                      ], includePlayer=False)):
+                    # essentially, for when the patrol mentions that someone else EXISTS, but nothing beyond that
+                    continue
+                if ("alone_in_clan" in patrol.tags # ?!?!?!?!?!?!?!?!?!?!
+                    and get_alive_status_cats(Cat, [
+                      "newborn", "kitten",
+                      "apprentice", "mediator apprentice", "medicine cat apprentice", "queen's apprentice",
+                      "warrior", "mediator", "medicine cat", "queen", "deputy", "leader",
+                      "elder"
+                      ], includePlayer=False)):
+                    # for the wild folks who have their cat all alone
+                    continue
+
 
                 # this is testing every piece of text in the patrol
                 # to see if there's an abbrev that cant be fulfilled.
@@ -1186,7 +1311,7 @@ class Patrol:
 
         vowels = ["A", "E", "I", "O", "U"]
         if not text:
-            text = "This should not appear, report as a bug please!"
+            text = "This should not appear, report to Neon as a bug please!"
         
         # new dict for lifegen abbrevs ^^
         
