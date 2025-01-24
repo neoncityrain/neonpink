@@ -3608,11 +3608,15 @@ class Events:
         if random.getrandbits(murder_capable) != 1:
             return
 
+        if game.settings.get("higher murder moon chance"):
+            murderTargetThreshold = 10
+        else:
+            murderTargetThreshold = 20
         # If random murder is not triggered, targets can only be those they have some dislike for
         hate_relation = [
             i
             for i in relationships
-            if i.dislike > 10
+            if i.dislike > murderTargetThreshold
             and not Cat.fetch_cat(i.cat_to).dead
             and not Cat.fetch_cat(i.cat_to).outside
         ]
@@ -3620,7 +3624,7 @@ class Events:
         resent_relation = [
             i
             for i in relationships
-            if i.jealousy > 10
+            if i.jealousy > murderTargetThreshold
             and not Cat.fetch_cat(i.cat_to).dead
             and not Cat.fetch_cat(i.cat_to).outside
         ]
@@ -3628,7 +3632,7 @@ class Events:
         toxicity_relation = [
             i
             for i in relationships
-            if i.toxicity > 10
+            if i.toxicity > murderTargetThreshold
             and not Cat.fetch_cat(i.cat_to).dead
             and not Cat.fetch_cat(i.cat_to).outside
         ]

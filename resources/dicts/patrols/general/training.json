@@ -44,9 +44,10 @@
                 ]
             },
             {
-                "text": "Astutely, s_c recognizes the cranberries and carefully chews off a branch laden with them to bring back to camp - the herb stocks can use this odd fruit.",
+                "text": "Astutely, s_c recognizes the raspberries and carefully chews off a branch laden with them to bring back to camp- the herb stocks can use this.",
                 "exp": 20,
                 "weight": 20,
+                "herbs": ["raspberry"],
                 "stat_skill": ["CLEVER,2"],
                 "relationships": [
                     {
@@ -709,7 +710,7 @@
                 "weight": 40,
                 "can_have_stat": ["any"],
                 "stat_skill": [
-                    "DREAM,1"
+                    "DREAM,1","NPSPIRIT,2"
                 ]
             },
             {
@@ -962,7 +963,8 @@
                 "weight": 40,
                 "can_have_stat": ["any"],
                 "stat_skill": [
-                    "DREAM,1"
+                    "DREAM,1",
+                    "NPSPIRIT,2"
                 ]
             },
             {
@@ -3036,7 +3038,13 @@
                 "exp": 20,
                 "weight": 20,
                 "stat_trait": ["faithful"],
-                "stat_skill": ["STAR,2"],
+                "stat_skill": [
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,3",
+                    "NPDEADSPEAKER,3",
+                    "NPSPIRIT,1"
+                ],
                 "relationships": [
                     {
                         "cats_to": ["s_c"],
@@ -3126,9 +3134,22 @@
                 "weight": 5
             },
             {
-                "text": "s_c often feels like StarClan walks with them, and this is just another instance on the path. {PRONOUN/s_c/subject/CAP} {VERB/s_c/use/uses} the solo patrol to collect {PRONOUN/s_c/poss} thoughts, and by the time {PRONOUN/s_c/subject} {VERB/s_c/pad/pads} home with a hard day's training done, {PRONOUN/s_c/subject}{VERB/s_c/'re/'s} ready for the next step {PRONOUN/s_c/poss} vision hinted at.",
+                "text": "The territory must be calling to s_c. {PRONOUN/r_c/subject/CAP} take a longer detour than {PRONOUN/r_c/subject} usually {VERB/r_c/do/does}, but when s_c returns home, it's with {PRONOUN/r_c/poss} tail held high.",
+                "stat_skill": [
+                    "NPSPIRIT,2"
+                ],
+                "exp": 20,
+                "weight": 5
+            },
+            {
+                "text": "s_c often feels like StarClan walks with {PRONOUN/r_c/object}, and this is just another instance on the path. {PRONOUN/s_c/subject/CAP} {VERB/s_c/use/uses} the solo patrol to collect {PRONOUN/s_c/poss} thoughts, and by the time {PRONOUN/s_c/subject} {VERB/s_c/pad/pads} home with a hard day's training done, {PRONOUN/s_c/subject}{VERB/s_c/'re/'s} ready for the next step {PRONOUN/s_c/poss} vision hinted at.",
                 "stat_trait": ["faithful"],
-                "stat_skill": ["STAR,2"],
+                "stat_skill": [
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,2"
+                ],
                 "exp": 20,
                 "weight": 20
             }
@@ -3285,7 +3306,12 @@
                 "text": "s_c listens to app1 talk with a deep sense of deja vu, in addition to {PRONOUN/s_c/poss} shock. This sounds like the trouble {PRONOUN/s_c/subject} had when {PRONOUN/s_c/subject} {VERB/s_c/were/was} young, plagued by contact with StarClan regardless of whether {PRONOUN/s_c/subject} wanted it or not. {PRONOUN/s_c/subject/CAP} immediately {VERB/s_c/take/takes} app1 aside to give them {PRONOUN/s_c/poss} full attention and support.",
                 "exp": 20,
                 "weight": 20,
-                "stat_skill": ["DREAM,2", "STAR,1", "CLAIRVOYANT,2", "PROPHET,2"],
+                "stat_skill": [
+                    "DREAM,2", "STAR,1", "CLAIRVOYANT,2", "PROPHET,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,1"
+                ],
                 "can_have_stat": ["adult"],
                 "relationships": [
                     {
@@ -3424,7 +3450,12 @@
                 "text": "s_c sees the patrol competing to scare each other and derails it completely. Instead {PRONOUN/s_c/subject} {VERB/s_c/spin/spins} a tale of truth, bringing the story of one of c_n's warrior ancestors to life. With how clear {PRONOUN/s_c/poss} words are, it's almost like {PRONOUN/s_c/subject} {VERB/s_c/know/knows} the StarClan cat, even though that's impossible.",
                 "exp": 20,
                 "weight": 20,
-                "stat_skill": ["STAR,2"],
+                "stat_skill": [
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,1"
+                ],
                 "relationships": [
                     {
                         "cats_to": ["patrol"],
@@ -7498,7 +7529,12 @@
                 "exp": 10,
                 "weight": 20,
                 "stat_trait": ["faithful", "wise"],
-                "stat_skill": ["STAR,2"],
+                "stat_skill": [
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,1"
+                ],
                 "can_have_stat": ["p_l"],
                 "relationships": [
                     {
@@ -10033,7 +10069,14 @@
         "intro_text": "As app1 falls over again, still not grasping how to shift {PRONOUN/app1/poss} weight with that move, p_l watches {PRONOUN/app1/object} from the side of the training ring, sitting apart from the rest of the patrol - but not alone.",
         "decline_text": "They remain silent, content to watch. app1 will make their own mistakes.",
         "chance_of_success": 70,
-        "pl_skill_constraint": ["STAR,1", "GHOST,1", "DARK,1"],
+        "pl_skill_constraint": [
+            "STAR,1", "GHOST,1", "DARK,1",
+            "NPSTARGHOST,1",
+            "NPDARKSTAR,1",
+            "NPDEADSPEAKER,1",
+            "NPDARKGHOST,1",
+            "NPSPIRIT,1"
+        ],
         "success_outcomes": [
             {
                 "text": "The spirit beside {PRONOUN/p_l/object} calls to app1, a murmur that drifts in and out of p_l's hearing, making {PRONOUN/p_l/poss} ears twitch. It isn't bad advice though. After another fall, p_l pads forward to pass on the message. It can be difficult to interpret the words of those who've gone beyond, but seeing as the spirit has been sitting there yowling the same advice over and over again, p_l deciphers the otherwordly message.",
@@ -10050,7 +10093,7 @@
                 ]
             },
             {
-                "text": "p_l is confused. Why manifest here, now, during this training session? But when the ghostly presence loses their temper and charges in, incorporeally trying to show app1 how it's done - interference which app1 is blissfully ignorant of - p_l understands. This cat was an apprentice too, though they never grew older.",
+                "text": "p_l is confused. Why manifest here, now, during this training session? But when the ghostly presence loses their temper and charges in, incorporeally trying to show app1 how it's done - interference which app1 is blissfully ignorant of- p_l understands. This cat was an apprentice too, though they never grew older.",
                 "exp": 30,
                 "weight": 5,
                 "relationships": [

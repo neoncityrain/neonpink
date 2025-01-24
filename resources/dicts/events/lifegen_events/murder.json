@@ -717,8 +717,7 @@
             "night"
         ],
         "biome": [
-            "plains",
-            "camp5"
+            "desert"
         ],
         "tags": [],
         "texts": [
@@ -911,8 +910,7 @@
             "night"
         ],
         "biome": [
-            "plains",
-            "camp5"
+            "desert"
         ],
         "tags": [],
         "texts": [
@@ -3662,7 +3660,9 @@
             "territory",
             "day"
         ],
-        "biome": ["plains", "camp5"],
+        "biome": [
+            "desert"
+        ],
         "tags": [],
         "texts": [
             "You've had it up to your ears with v_c's complaining. Always sniffling about how hot it is and how {PRONOUN/v_c/subject} {VERB/v_c/wish/wishes} {PRONOUN/v_c/subject} could live somewhere cooler. One day you approach {PRONOUN/v_c/object} and tell {PRONOUN/v_c/object} you know a secret cave with a cool breeze that {PRONOUN/v_c/subject} simply <i>{VERB/v_c/have/has}</i> to see. Despite it being day out, most of your Clanmates have already retreated into their dens for the afternoon, meaning you can lead v_c out of camp without a problem. You don't get far before you tell {PRONOUN/v_c/object} you forgot where the cave was and {PRONOUN/v_c/subject} should wait here while you go look. You stifle a smile as {PRONOUN/v_c/subject} {VERB/v_c/agree/agrees}  to sit near a rock and wait for you to return. However, you have no such intent. You race away from v_c, knowing that if the heat doesn't get to {PRONOUN/v_c/object} by the end of the day, the coyotes will."
@@ -6511,8 +6511,7 @@
             "kitten"
         ],
         "strategy": [
-            "accident",
-            "camp5"
+            "accident"
         ],
         "biome": [
             "mountainous", "camp5"
@@ -6692,7 +6691,9 @@
             "camp",
             "day"
         ],
-        "biome": ["plains", "camp5"],
+        "biome": [
+            "desert"
+        ],
         "tags": [],
         "texts": [
             "Your pelt bristles as you listen to v_c spin tall tales, filling the heads of your Clanmates with nothing more than thistledown. v_c is a bad influence on the Clan, but even more so on the kits. One afternoon, finally fed up with the kit's constant questions about one of v_c's stories, you slip out of the nursery. v_c is resting in the dappled shade, clearly tired from the heat. Your claws curl into the sandy earth as an idea begins to form. A little later, you approach v_c, a bit of moss dripping with water, and a little something extra, gingerly held in your teeth. Finding the snake's venom was tricky, but the sound of v_c's strangled gasps makes it worth the effort."

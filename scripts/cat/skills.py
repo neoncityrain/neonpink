@@ -329,7 +329,7 @@ class SkillPath(Enum):
     )
     NPBITE = (
         "chews on anything",
-        "explores with teeth",
+        "explores using teeth",
         "nibbles others often",
         "the politest biter"
     )
@@ -338,6 +338,12 @@ class SkillPath(Enum):
         "aesthetic fan",
         "makes anything beautiful",
         "nature's artist"
+    )
+    NPSPIRIT = (
+        "outcast from games",
+        "stares at nothing",
+        "senses spirits",
+        "spirit communicator"
     )
     
     @staticmethod
@@ -361,7 +367,8 @@ class SkillPath(Enum):
                 SkillPath.NPSTARGHOST,
                 SkillPath.NPDEADSPEAKER,
                 SkillPath.NPMORBID,
-                SkillPath.NPSNEAK
+                SkillPath.NPSNEAK,
+                SkillPath.NPSPIRIT
             ]
             if i not in exclude
         ]
@@ -457,7 +464,8 @@ class Skill:
         SkillPath.NPKICK: "kicking",
         SkillPath.NPPLAY: "playfighting",
         SkillPath.NPBITE: "biting",
-        SkillPath.NPART: "artwork"
+        SkillPath.NPART: "artwork",
+        SkillPath.NPSPIRIT: "spirits"
     }
 
     def __init__(self, path: SkillPath, points: int = 0, interest_only: bool = False):
@@ -653,7 +661,8 @@ class CatSkills:
         SkillPath.NPKICK: SkillTypeFlag.STRONG | SkillTypeFlag.AGILE,
         SkillPath.NPPLAY: SkillTypeFlag.SOCIAL | SkillTypeFlag.STRONG,
         SkillPath.NPBITE: SkillTypeFlag.STRONG,
-        SkillPath.NPART: SkillTypeFlag.OBSERVANT | SkillTypeFlag.SMART
+        SkillPath.NPART: SkillTypeFlag.OBSERVANT | SkillTypeFlag.SMART,
+        SkillPath.NPSPIRIT: SkillTypeFlag.SUPERNATURAL
     }
 
     # pylint: enable=unsupported-binary-operation

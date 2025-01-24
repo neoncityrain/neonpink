@@ -37,6 +37,7 @@ from scripts.utility import (
     quit,
     clan_symbol_sprite,
 )  # pylint: disable=redefined-builtin
+from scripts.cat.skills import SkillPath, CatSkills
 
 
 class Clan:
@@ -240,35 +241,40 @@ class Clan:
         created in the 'clan created' screen, not every time
         the program starts
         """
-        self.instructor = Cat(status=choice([
-            "apprentice", "mediator apprentice", "medicine cat apprentice", "warrior",
-            "medicine cat", "leader", "mediator", "queen", "queen's apprentice", "deputy", "elder"]),
-                            )
-        self.instructor.dead = True
-        self.instructor.dead_for = randint(1, 500)
-        if self.clan_age == "new":
-            self.instructor.backstory = choice(BACKSTORIES["backstory_categories"]["new_sc_guide_backstories"])
+        lowercaseName = self.name.lower()
+        if ("neon" and "pink") in lowercaseName:
+            neonpinkEasteregg(self)
         else:
-            self.instructor.backstory = choice(BACKSTORIES["backstory_categories"]["starclan_backstories"])
-        self.add_cat(self.instructor)
-        self.add_to_starclan(self.instructor)
+            self.instructor = Cat(status=choice([
+                "apprentice", "mediator apprentice", "medicine cat apprentice", "warrior",
+                "medicine cat", "leader", "mediator", "queen", "queen's apprentice", "deputy", "elder"]),
+                                )
+            self.instructor.dead = True
+            self.instructor.dead_for = randint(0, 500)
+            if self.clan_age == "new":
+                self.instructor.backstory = choice(BACKSTORIES["backstory_categories"]["new_sc_guide_backstories"])
+            else:
+                self.instructor.backstory = choice(BACKSTORIES["backstory_categories"]["starclan_backstories"])
+            self.add_cat(self.instructor)
+            self.add_to_starclan(self.instructor)
+            self.all_clans = []
+            
+            self.demon = Cat(status=choice(["apprentice", "mediator apprentice", "medicine cat apprentice", "warrior",
+                                                "medicine cat", "leader", "mediator", "queen", "queen's apprentice",
+                                                "deputy", "elder"]),
+                                )
+            self.demon.df = True
+            self.demon.dead = True
+            self.demon.dead_for = randint(1, 500)
+            if self.clan_age == "new":
+                self.demon.backstory = choice(BACKSTORIES["backstory_categories"]["new_df_guide_backstories"])
+            else:
+                self.demon.backstory = choice(BACKSTORIES["backstory_categories"]["df_backstories"])
+            self.add_cat(self.demon)
+            self.add_to_darkforest(self.demon)
         self.all_clans = []
         
-        self.demon = Cat(status=choice(["apprentice", "mediator apprentice", "medicine cat apprentice", "warrior",
-                                            "medicine cat", "leader", "mediator", "queen", "queen's apprentice",
-                                            "deputy", "elder"]),
-                            )
-        self.demon.df = True
-        self.demon.dead = True
-        self.demon.dead_for = randint(1, 500)
-        if self.clan_age == "new":
-            self.demon.backstory = choice(BACKSTORIES["backstory_categories"]["new_df_guide_backstories"])
-        else:
-            self.demon.backstory = choice(BACKSTORIES["backstory_categories"]["df_backstories"])
-        self.add_cat(self.demon)
-        self.add_to_darkforest(self.demon)
-        self.all_clans = []
- 
+        
         if self.leader.status != "leader":
             self.leader.status_change('leader')
 
@@ -1984,3 +1990,45 @@ clan_class.remove_cat(cat_class.ID)
 HERBS = None
 with open("resources/dicts/herbs.json", "r", encoding="utf-8") as read_file:
     HERBS = ujson.loads(read_file.read())
+
+def neonpinkEasteregg(self):
+    self.instructor = Cat(
+        prefix="Arson",suffix="above",moons=23,status="warrior",
+        gender="intersex",gender_align="intersex"
+            )
+    self.instructor.get_permanent_condition("born without a tail", born_with=True, event_triggered=True)
+    self.instructor.permanent_condition['born without a tail']["moons_until"] = -1
+    self.instructor.permanent_condition['born without a tail']["moons_with"] = -1
+    self.instructor.get_permanent_condition("born without an eye", born_with=True, event_triggered=True)
+    self.instructor.permanent_condition['born without an eye']["moons_until"] = -1
+    self.instructor.permanent_condition['born without an eye']["moons_with"] = -1
+
+    self.instructor.pelt = Pelt(
+        name="Tortie",colour="SILVER",tortiepattern="sokoke",tortiebase="sokoke",
+        pattern="SHADEDPATTERN",tortiecolour="PEACH",
+        length="long",eye_color="BALLSGREEN",eye_colour2="CLOSED",
+        scars=["NOTAIL"], accessories=["BULB ORANGE"])
+    self.instructor.dead = True
+    self.instructor.dead_for = 0
+    self.instructor.backstory = "dead9"
+    self.instructor.personality.trait = "meek"
+    self.instructor.skills = CatSkills(primary_path=SkillPath.LANGUAGE)
+    self.add_cat(self.instructor)
+    self.add_to_starclan(self.instructor)
+    self.all_clans = []
+    
+    self.demon = Cat(
+        prefix="Sun",suffix="bellow",moons=23,status="medicine cat",gender_align="nonbinary"
+                        )
+    self.demon.pelt=Pelt(name="Goldshaded",length="short",eye_color="STARCLANWARM",eye_colour2="STARCLANWARM",
+                    colour="VOID",tint="purple")
+    self.demon.df = True
+    self.demon.dead = True
+    self.demon.dead_for = 0
+    self.demon.backstory = "oldstarclan2"
+    self.demon.skills= CatSkills(primary_path=SkillPath.NPMORBID)
+    self.add_cat(self.demon)
+    self.add_to_darkforest(self.demon)
+    self.all_clans = []
+
+    print("Hello, world!")

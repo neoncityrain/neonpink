@@ -512,7 +512,10 @@
                 "weight": 20,
                 "stat_skill": [
                     "DREAM,1",
-                    "STAR,2"
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,3",
+                    "NPDEADSPEAKER,3"
                 ],
                 "herbs": ["random_herbs"],
                 "relationships": [
@@ -665,7 +668,10 @@
                 "weight": 20,
                 "stat_skill": [
                     "DREAM,1",
-                    "STAR,2"
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,3",
+                    "NPDEADSPEAKER,3"
                 ],
                 "herbs": ["random_herbs"],
                 "relationships": [
@@ -713,7 +719,11 @@
                 "text": "s_c often feels like StarClan walks with {PRONOUN/s_c/object}, and this is just another instance on the path. {PRONOUN/s_c/subject/CAP} {VERB/s_c/use/uses} the solo patrol to collect {PRONOUN/s_c/poss} thoughts, and by the time {PRONOUN/s_c/subject} {VERB/s_c/pad/pads} home with a good bundle of cobwebs, {PRONOUN/s_c/subject}{VERB/s_c/'re/'s} ready for the next step {PRONOUN/s_c/poss} vision hinted at.",
                 "exp": 20,
                 "weight": 20,
-                "stat_skill": ["STAR,1"],
+                "stat_skill": [
+                    "STAR,1",
+                    "NPSTARGHOST,1",
+                    "NPDARKSTAR,2"
+                ],
                 "herbs": ["cobwebs"]
             },
             {
@@ -789,7 +799,12 @@
                 "text": "s_c often feels like StarClan walks with {PRONOUN/s_c/object}, and this is just another instance on the path. However, as s_c reflects on the vision {PRONOUN/s_c/subject} {VERB/s_c/find/finds} that {PRONOUN/s_c/subject} can't decipher the meaning.",
                 "exp": 0,
                 "weight": 20,
-                "stat_skill": ["STAR,1"]
+                "stat_skill": [
+                    "STAR,1",
+                    "NPSTARGHOST,1",
+                    "NPDARKSTAR,1",
+                    "NPDEADSPEAKER,2"
+                ]
             }
         ]
     },
@@ -871,7 +886,13 @@
                 "exp": 20,
                 "weight": 20,
                 "herbs": ["random_herbs"],
-                "stat_skill": ["DREAM,1", "STAR,2"],
+                "stat_skill": [
+                    "DREAM,1", "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,3",
+                    "NPDEADSPEAKER,3",
+                    "NPSPIRIT,2"
+                ],
                 "relationships": [
                     {
                         "cats_to": ["p_l"],
@@ -1160,14 +1181,21 @@
                 "text": "With the familiarity brought by {PRONOUN/s_c/poss} connection to StarClan, s_c turns to the ghost haunting {PRONOUN/p_l/poss} path, meeting {PRONOUN/s_c/poss} star-walking ancestor with a purr and quiet confidence.",
                 "exp": 30,
                 "weight": 20,
-                "stat_skill": ["CLAIRVOYANT,2", "STAR,2"],
+                "stat_skill": [
+                    "CLAIRVOYANT,2", "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,3",
+                    "NPDEADSPEAKER,3"
+                ],
                 "herbs": ["random_herbs"]
             },
             {
                 "text": "With a hesitant nod, s_c greets the StarClan cat, nerves slowly fading as the two converse. Before the StarClan cat leaves, they bring warning of prophecy_list.",
                 "exp": 30,
                 "weight": 20,
-                "herbs": ["random_herbs"],
+                "herbs": [
+                    "random_herbs"
+                ],
                 "stat_trait":[
                     "lonesome",
                     "nervous",
@@ -1286,7 +1314,12 @@
                 "text": "With the familiarity brought by {PRONOUN/s_c/poss} connection to StarClan, s_c turns to the ghost haunting {PRONOUN/p_l/poss} path, meeting {PRONOUN/s_c/poss} star-walking ancestor with a purr and quiet confidence.",
                 "exp": 30,
                 "weight": 20,
-                "stat_skill": ["CLAIRVOYANT,2", "STAR,2"],
+                "stat_skill": [
+                    "CLAIRVOYANT,2", "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,3",
+                    "NPDEADSPEAKER,3"
+            ],
                 "herbs": ["random_herbs"],
                 "relationships": [
                     {
@@ -1619,7 +1652,12 @@
                 "text": "p_l had seen before how connected r_c was to StarClan, and began telling {PRONOUN/p_l/object} more than they would have told any other Clan cat about their ancestors. p_l and r_c spend much of their patrol gathering herbs and discussing the hard-hitting questions on prophecies and StarClan's gifts.",
                 "exp": 10,
                 "weight": 20,
-                "stat_skill": ["LORE,1", "STAR,1"],
+                "stat_skill": [
+                    "LORE,1", "STAR,1",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,2"
+                ],
                 "herbs": ["random_herbs"],
                 "relationships": [
                     {
@@ -2259,7 +2297,12 @@
                 "text": "s_c sits down and motions for app1 to join {PRONOUN/p_l/object}, looking at {PRONOUN/app1/object} inquisitively. app1 tentatively explains that {PRONOUN/app1/subject}{VERB/app1/'re/'s} curious about how visits from StarClan work. s_c is probably the best cat {PRONOUN/app1/subject} could have asked that question to. The older cat takes pride in the way app1 listens to {PRONOUN/s_c/object} talk, wonder shining in {PRONOUN/app1/poss} eyes.",
                 "exp": 20,
                 "weight": 20,
-                "stat_skill": ["STAR,2"],
+                "stat_skill": [
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,3"
+                ],
                 "herbs": ["random_herbs"],
                 "relationships": [
                     {
@@ -2275,7 +2318,12 @@
                 "text": "s_c sits down and motions for app1 to join {PRONOUN/p_l/object}, looking at {PRONOUN/app1/object} inquisitively. app1 tentatively explains that {PRONOUN/app1/subject}{VERB/app1/'re/'s} curious about how visits from StarClan work. s_c is probably the best cat {PRONOUN/app1/subject} could have asked that question to. The older cat takes pride in the way app1 listens to {PRONOUN/s_c/object} talk, wonder shining in {PRONOUN/app1/poss} eyes.",
                 "exp": 20,
                 "weight": 20,
-                "stat_skill": ["STAR,2"],
+                "stat_skill": [
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,3"
+                ],
                 "herbs": ["random_herbs"],
                 "relationships": [
                     {
@@ -2438,7 +2486,12 @@
                 "text": "r_c hums, and asks s_c what {PRONOUN/s_c/subject} {VERB/s_c/think/thinks} the nature of StarClan is. s_c doesn't hesitate before answering, {PRONOUN/s_c/poss} deep connection to {PRONOUN/s_c/poss} ancestors granting {PRONOUN/s_c/object} knowledge and insight r_c doesn't necessarily have. r_c is enthralled, and it feels all too soon that they pick the herbs and have their mouths too full to continue talking.",
                 "exp": 20,
                 "weight": 20,
-                "stat_skill": ["STAR,2"],
+                "stat_skill": [
+                    "STAR,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,2",
+                    "NPDEADSPEAKER,3"
+                ],
                 "herbs": ["random_herbs"],
                 "relationships": [
                     {
@@ -3237,7 +3290,11 @@
                     "SENSE,2",
                     "OMEN,2",
                     "STAR,2",
-                    "LORE,2"
+                    "LORE,2",
+                    "NPSTARGHOST,2",
+                    "NPDARKSTAR,3",
+                    "NPDEADSPEAKER,3",
+                    "NPSPIRIT,1"
                 ]
             }
         ],

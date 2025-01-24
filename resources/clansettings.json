@@ -138,6 +138,11 @@
             "Allow cats to have toxic relationships",
             "Allows cats to be abusive in a variety of ways. Not to be taken lightly. (IN DEVELOPMENT)",
             false
+        ],
+        "higher murder moon chance": [
+            "Raised murder chances",
+            "Raises the chances of cats murdering one another during moon events.",
+            true
         ]
     },
     "freshkill_tactics":{

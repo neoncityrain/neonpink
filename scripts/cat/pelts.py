@@ -1124,7 +1124,7 @@ class Pelt:
             "Sokoke": "c_n tabby",
             "Masked": "masked c_n tabby",
 
-            "Goldshaded": "golden dorsal-striped c_n",
+            "Goldshaded": "dorsal-tarnished c_n",
             "Silverclassic": "c_n silver tabby",
             "Silvermackerel": "c_n silver tabby"
         }
