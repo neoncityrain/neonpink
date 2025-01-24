@@ -1798,13 +1798,14 @@ class MurderScreen(Screens):
             # just trying to avoid errors if theres no medcats or anyone else in the clan lol.
             # for that one event that mentions a medcat
 
-            # NEONPINK- this is no longer properly necessary, as theres now a check for that using tags,
-            # but is still here just in case!
 
         # NEONPINK: get random kit!
         if len(kits) > 0:
             random_kit = choice(kits)
             random_kit_prns = choice(kits.pronouns)
+        else:
+            random_kit = self.cat_to_murder
+            random_kit_prns = choice(self.cat_to_murder.pronouns)
 
         replace_dict = {
             "v_c": (str(self.cat_to_murder.name), choice(self.cat_to_murder.pronouns)),
