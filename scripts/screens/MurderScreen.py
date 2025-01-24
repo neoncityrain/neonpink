@@ -14,7 +14,8 @@ from scripts.utility import (
     process_text, 
     pronoun_repl, 
     # neonpink!
-    get_alive_status_cats
+    get_alive_status_cats,
+    check_relationship_value
     )
 from scripts.cat.cats import Cat, INJURIES
 from scripts.game_structure import image_cache
@@ -1395,6 +1396,9 @@ class MurderScreen(Screens):
         camps = ["camp1", "camp2", "camp3", "camp4", "camp5", "camp6"]
 
 
+        trueaccident = False
+        discovered = False # this has been moved up so some tags can force a discovery (such as the kitten killing leader event).
+        
         for i in self.m_txt.items():
             key = i[0]
             murder_dict = i[1]
@@ -1442,6 +1446,141 @@ class MurderScreen(Screens):
                         continue
 
             if "relationship" in murder_dict and murder_dict["relationship"]:
+
+                if "specific-values" in murder_dict["relationship"]:
+                    # relationship values to determine the player characters relationship to the victim.
+                    # lots of them so theres lots of room for nuance.
+                    # none should be mutually exclusive outside of love vs like / light vs extreme values.
+                    # this allows for things such as toxic crushes.
+                    # all uses of it HAVE to have the "specific-values" tag in "relationship"
+                    values = ["romantic","platonic","dislike","admiration","comfortable","jealousy","trust","toxicity"]
+                    for val in values:
+                        player_value_check = check_relationship_value(you, cat_to_murder, val)
+                        victim_value_check = check_relationship_value(cat_to_murder, you, val)
+
+                        if val == "platonic":
+                            if ("player_platonic_love_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50): # threshold for high emotions is 50.
+                                continue
+                            elif ("player_platonic_like_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+
+                            if ("victim_platonic_love_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_platonic_like_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+
+                        if val == "romantic":
+                            # and whats more romantic than murder truly
+                            if ("player_romantic_love_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50):
+                                continue
+                            elif ("player_romantic_like_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+                            
+                            if ("victim_romantic_love_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_romantic_like_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+
+                        if val == "dislike":
+                            if ("player_hate_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50):
+                                continue
+                            elif ("player_dislike_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+                            
+                            if ("victim_hate_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_dislike_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+
+                        if val == "admiration":
+                            if ("player_high_admire_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50):
+                                continue
+                            elif ("player_low_admire_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+                            
+                            if ("victim_high_admire_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_low_admire_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+
+                        if val == "jealousy":
+                            if ("player_envy_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50):
+                                continue
+                            elif ("player_jealous_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+                            
+                            if ("victim_envy_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_jealous_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+
+                        if val == "trust":
+                            if ("player_high_trust_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50):
+                                continue
+                            elif ("player_low_trust_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+                            
+                            if ("victim_high_trust_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_low_trust_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+
+                        if val == "respect":
+                            if ("player_high_respect_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50):
+                                continue
+                            elif ("player_low_respect_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+                            
+                            if ("victim_high_respect_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_low_respect_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+
+                        if val == "toxicity":
+                            # toxicity check. remember to use the toxic tag as well.
+                            if ("player_toxic_to_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 50):
+                                continue
+                            elif ("player_bad_for_victim" in murder_dict["relationship"] and not
+                                player_value_check >= 20):
+                                continue
+                            
+                            if ("victim_toxic_to_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 50):
+                                continue
+                            elif ("victim_bad_for_player" in murder_dict["relationship"] and not
+                                victim_value_check >= 20):
+                                continue
+                        
+                
                 if "mates" in murder_dict["relationship"]:
                     if cat_to_murder not in you.mates:
                         continue
@@ -1495,6 +1634,7 @@ class MurderScreen(Screens):
             # tags!
             # this includes all_lives, accomplice tags, and injury/death tags.
             # perhaps skills and clusters in the future.
+
             if "tags" in murder_dict and murder_dict["tags"]:
                 if (
                     (all_leader_lives and cat_to_murder.status == "leader")
@@ -1519,26 +1659,72 @@ class MurderScreen(Screens):
                     if "death" in murder_dict["tags"]:
                         continue
 
-                if accomplice and accompliced:
+                if accomplice and accompliced: # accomplice agreed
                     if "alone" in murder_dict["tags"]:
                         continue
                     if "accomplice_refused" in murder_dict["tags"]:
                         continue
-
-                elif accomplice:
+                elif accomplice: # acc refused
                     if "alone" in murder_dict["tags"]:
                         continue
                     if "accomplice_agreed" in murder_dict["tags"]:
                         continue
-
                 elif not accomplice and not accompliced:
                     if "accomplice_refused" in murder_dict["tags"]:
                         continue
                     if "accomplice_agreed" in murder_dict["tags"]:
                         continue
+                
+                # NEONPINK TAGS -------------------------------------------------------------------------
+                # roles exist
+                if "medcats_in_clan" in murder_dict["tags"] and not get_alive_status_cats(Cat, [
+                      "medicine cat apprentice", "medicine cat"
+                      ], includePlayer=False):
+                    continue
+                if "leader_in_clan" in murder_dict["tags"] and not get_alive_status_cats(Cat, [
+                      "leader"
+                      ], includePlayer=False):
+                    continue
+                if "kit_in_clan" in murder_dict["tags"] and not get_alive_status_cats(Cat, [
+                      "kitten"
+                      ], includePlayer=False):
+                    continue
+
+                # seasons
+                if "leaf-bare" in murder_dict["tags"] and not str(game.clan.current_season) == "Leaf-bare":
+                    # if the current season string isnt "Leaf-bare", basically.
+                    continue
+                if "leaf-fall" in murder_dict["tags"] and not str(game.clan.current_season) == "Leaf-fall":
+                    continue
+                if "greenleaf" in murder_dict["tags"] and not str(game.clan.current_season) == "Greenleaf":
+                    continue
+                if "newleaf" in murder_dict["tags"] and not str(game.clan.current_season) == "Newleaf":
+                    continue
+
+                # game settings
+                if "toxic" in murder_dict["tags"] and not game.settings.get("toxic relationships"):
+                    # prevent toxic murders from appearing if the toxic relationships setting is off.
+                    continue
+                if "gore" in murder_dict["tags"] and not game.settings.get("gore"):
+                    # just in case! for especially descriptive murders
+                    continue
+
+                # these tags actively do things. right here. bam
+                if "guilt" in murder_dict["tags"]:
+                    # force-gives guilt, regardless of / in addition to other injuries
+                    you.get_injured("guilt")
+                if "true_accident" in murder_dict["tags"]:
+                    # to prevent shunning if something was an actual, legitimate accident.
+                    # not to be used for EVERY genuine accident- only for some
+                    # (such as the apprentice friends attacked by dogs event).
+                    # THIS SHOULD BE RARE, AS IT WAS STILL THE PLAYER'S CHOICE.
+                    trueaccident = True
+                if "always_discovered" in murder_dict["tags"]:
+                    discovered = True
+                
 
             elif "tags" in murder_dict and not murder_dict["tags"]:
-            # injury and death outcomes cannot get events with empty tags
+                # injury and death outcomes cannot get events with empty tags
                 if injury:
                     continue
                 if death:
@@ -1584,8 +1770,13 @@ class MurderScreen(Screens):
     
         medcats = []
         for cat in Cat.all_cats_list:
-            if cat.status == "medicine cat" and not cat.dead and not cat.outside and cat.status != you.status:
+            if "medicine cat" in cat.status and not cat.dead and not cat.outside and cat.status != you.status:
                 medcats.append(cat)
+
+        kits = []
+        for cat in Cat.all_cats_list:
+            if cat.status == "kitten" and not cat.dead and not cat.outside and cat.status != you.status:
+                kits.append(cat)
 
         warriors = []
         for cat in Cat.all_cats_list:
@@ -1604,13 +1795,23 @@ class MurderScreen(Screens):
         else:
             random_medcat = self.cat_to_murder
             random_medcat_prns = choice(self.cat_to_murder.pronouns)
-            # just trying to avoid errors if theres no medcats or anyone else in the clan lol. for that one event that mentions a medcat
+            # just trying to avoid errors if theres no medcats or anyone else in the clan lol.
+            # for that one event that mentions a medcat
+
+            # NEONPINK- this is no longer properly necessary, as theres now a check for that using tags,
+            # but is still here just in case!
+
+        # NEONPINK: get random kit!
+        if len(kits) > 0:
+            random_kit = choice(kits)
+            random_kit_prns = choice(kits.pronouns)
 
         replace_dict = {
             "v_c": (str(self.cat_to_murder.name), choice(self.cat_to_murder.pronouns)),
             "l_n": (str(game.clan.leader.name), choice(game.clan.leader.pronouns)),
             "y_c": (str(game.clan.your_cat.name), choice(game.clan.your_cat.pronouns)),
-            "r_m": (str(random_medcat.name), random_medcat_prns)
+            "r_m": (str(random_medcat.name), random_medcat_prns),
+            "r_k":(str(random_kit.name), random_kit_prns)
         }
 
         if accomplice:
@@ -1636,8 +1837,7 @@ class MurderScreen(Screens):
         # discovery_num = 1
         # ^^ shun debug
 
-        discovered = False
-        if discovery_num < (discover_chance + 1):
+        if (discovery_num < (discover_chance + 1)) and not trueaccident:
             discovered = True
         else:
             discovered = False
@@ -1652,9 +1852,12 @@ class MurderScreen(Screens):
                     game.cur_events_list.insert(1, Single_Event(
                             "You successfully murdered "+ str(cat_to_murder.name) + " with the help of " +
                             str(accomplice.name) + "."))
-                History.add_death(cat_to_murder, f"{you.name} and {accomplice.name} murdered this cat.")
-                History.add_murders(cat_to_murder, accomplice, True, f"{you.name} murdered this cat along with {accomplice.name}.")
-                History.add_murders(cat_to_murder, you, True, f"{you.name} murdered this cat with the help of {accomplice.name}.")
+                History.add_death(
+                    cat_to_murder, f"{you.name} and {accomplice.name} murdered this cat.")
+                History.add_murders(
+                    cat_to_murder, accomplice, True, f"{you.name} murdered this cat along with {accomplice.name}.")
+                History.add_murders(
+                    cat_to_murder, you, True, f"{you.name} murdered this cat with the help of {accomplice.name}.")
                 
                 accguiltchance = randint(1,2)
                 if accguiltchance == 1:
@@ -1816,7 +2019,8 @@ class MurderScreen(Screens):
             accomplice.faith -= 0.5
 
         else:
-            txt = f"The unsettling truth of v_c's death is discovered, with you and {accomplice.name} responsible. The Clan decides both of your punishments."
+            txt = (f"The unsettling truth of v_c's death is discovered, with you and {accomplice.name} responsible." +
+                   "The Clan decides both of your punishments.")
             txt = txt.replace('v_c', str(cat_to_murder.name))
             game.cur_events_list.insert(2, Single_Event(txt))
             if not you.dead:
