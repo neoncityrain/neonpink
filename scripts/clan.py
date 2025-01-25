@@ -336,7 +336,7 @@ class Clan:
             self.populate_sc()
             self.populate_ur()
             self.populate_df()
-            self.populate_rivalclan()
+            # self.populate_rivalclan()
             self.generate_outsiders()
             self.generate_outsider_mates()
             self.generate_outsider_families()

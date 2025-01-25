@@ -543,11 +543,11 @@ def create_new_cat_block(
         thought = "Explores a new, starry world"
 
     outClan = None
-    if "rival" in attribute_list and alive == True:
-        outClan = 1
-        new_name = True
-        outside = True
-        thought = "Talks to clanmates about their rivals"
+    # if "rival" in attribute_list and alive == True:
+        # outClan = 1
+        # new_name = True
+        # outside = True
+        # thought = "Talks to clanmates about their rivals"
 
     # LIFEGEN: encountered dead cat residences -----------------------
     df = False
@@ -5096,7 +5096,9 @@ def adjust_txt(Cat, text, cat, cat_dict, r_c_allowed, o_c_allowed):
             addon_check = abbrev_addons(cat, alive_app, cluster, x, rel, r)
             counter = 0
 
-            while alive_app.ID == you.ID or alive_app.ID == cat.ID or cat.status in ["rogue", "loner", "former Clancat", "kittypet", "rival Clancat"] or addon_check is False:
+            while alive_app.ID == you.ID or alive_app.ID == cat.ID or cat.status in [
+                "rogue", "loner", "former Clancat", "kittypet", "rival Clancat"
+                ] or addon_check is False:
                 alive_app = choice(alive_outside_cats)
                 addon_check = abbrev_addons(cat, alive_app, cluster, x, rel, r)
                 counter += 1

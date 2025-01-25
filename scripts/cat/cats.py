@@ -2830,7 +2830,8 @@ class Cat:
     def is_valid_mentor(self, potential_mentor: Cat):
         # Dead or outside cats can't be mentors (outside can if its outclan and only in that specific outclan)
         # if dead or (outside AND not the same outclan variable)
-        if potential_mentor.dead or (potential_mentor.outside and self.outClan != potential_mentor.outClan):
+        if potential_mentor.dead or (potential_mentor.outside and self.outClan != None
+                                     and self.outClan != potential_mentor.outClan):
             return False
         # Match jobs
         if (
