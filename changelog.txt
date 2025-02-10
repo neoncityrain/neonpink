@@ -1,3 +1,8 @@
+<strong>v0.0.04: </strong>
+- Fixed crash related to cats using they/them pronouns and I am not even kidding
+- Made non-binary cats instead choose semi-random pronouns from a set of four (he, she, they, or it)
+- Fixed credits list misalignment
+
 <strong>v0.0.03: </strong>
 - Added proper changelog
 - Updated credits list
