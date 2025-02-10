@@ -4077,18 +4077,30 @@ class Events:
                 if cat.gender == "male":
                     cat.genderalign = "trans female"
                     cat.pronouns = [cat.default_pronouns[1].copy()]
+                elif cat.gender == "intersex":
+                    whichtrans = randint(0,1)
+                    if whichtrans == 0:
+                        cat.genderalign = "trans male"
+                        cat.pronouns = [cat.default_pronouns[2].copy()]
+                    elif whichtrans == 1:
+                        cat.genderalign = "trans female"
+                        cat.pronouns = [cat.default_pronouns[1].copy()]
                 else:
                     cat.genderalign = "trans male"
                     cat.pronouns = [cat.default_pronouns[2].copy()]
             else:
                 cat.genderalign = "nonbinary"
-                cat.pronouns = [cat.default_pronouns[0].copy()]
+                pronounpref = randint(0,4)
+                if pronounpref == 1:
+                    cat.pronouns = [cat.default_pronouns[1].copy()]
+                elif pronounpref == 2:
+                    cat.pronouns = [cat.default_pronouns[2].copy()]
+                elif pronounpref == 3:
+                    cat.pronouns = [cat.default_pronouns[3].copy()]
+                else:
+                    cat.pronouns = [cat.default_pronouns[0].copy()]
 
-            if cat.gender == "male":
-                gender = "tom"
-            else:
-                gender = "she-cat"
-            text = f"{cat.name} has realized that {gender} doesn't describe how they feel anymore."
+            text = f"{cat.name} has decided to play with gender and switch things up."
             game.cur_events_list.append(Single_Event(text, "misc", involved_cats))
             # game.misc_events_list.append(text)
 

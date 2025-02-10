@@ -370,7 +370,10 @@ def create_new_cat_block(
     elif "intersex" in attribute_list:
         gender = "intersex"
     elif "can_birth" in attribute_list and not game.clan.clan_settings["same sex birth"]:
-        gender = "female"
+        if "female" in attribute_list:
+            gender = "female"
+        elif "intersex" in attribute_list:
+            gender = "intersex"
     else:
         gender = None
 
@@ -543,11 +546,11 @@ def create_new_cat_block(
         thought = "Explores a new, starry world"
 
     outClan = None
-    # if "rival" in attribute_list and alive == True:
-        # outClan = 1
-        # new_name = True
-        # outside = True
-        # thought = "Talks to clanmates about their rivals"
+    if "rival" in attribute_list and alive == True:
+        outClan = 1
+        new_name = True
+        outside = True
+        thought = "Talks to clanmates about their rivals"
 
     # LIFEGEN: encountered dead cat residences -----------------------
     df = False

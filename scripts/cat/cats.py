@@ -492,6 +492,14 @@ class Cat:
         elif trans_chance == 1:
             if self.gender == "female":
                 self.genderalign = "trans male"
+            elif self.gender == "intersex":
+                transdirection = randint(0,2)
+                if transdirection == 0:
+                    self.genderalign = "trans male"
+                elif transdirection == 1:
+                    self.genderalign = "trans female"
+                else:
+                    self.genderalign = "nonbinary"
             else:
                 self.genderalign = "trans female"
 
@@ -504,10 +512,20 @@ class Cat:
                 self.pronouns = [self.default_pronouns[1].copy()]
             elif self.genderalign in ["male", "trans male"]:
                 self.pronouns = [self.default_pronouns[2].copy()]
+            elif self.genderalign in ["intersex"]:
+                self.pronouns = [self.default_pronouns[0].copy()]
             else:
                 self.genderalign = "nonbinary"
-                self.pronouns = [self.default_pronouns[0].copy()]
-
+                pronounpref = randint(0,4)
+                if pronounpref == 1:
+                    self.pronouns = [self.default_pronouns[1].copy()]
+                elif pronounpref == 2:
+                    self.pronouns = [self.default_pronouns[2].copy()]
+                elif pronounpref == 3:
+                    self.pronouns = [self.default_pronouns[3].copy()]
+                else:
+                    self.pronouns = [self.default_pronouns[0].copy()]
+                    
         # APPEARANCE
         self.pelt = Pelt.generate_new_pelt(
             self.gender,

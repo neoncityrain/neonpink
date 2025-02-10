@@ -7,7 +7,7 @@
         "You're welcome to use the characters and sprites generated in this program, as long as you don't claim the sprites as your own creations or sell them for any reason.",
         "",
         "<b>Original creator:</b> <i>just-some-cat.tumblr.com (anju)</i>",
-        "<b>Neon Pink fan-mod by:</b> <i>NeonCityRain</i> and <i>PinkKittens</i>",
+        "<b>Neon Pink fan-mod by:</b> <i>NeonCityRain</i> (code) and <i>PinkKittens</i> (art)",
         "<b>Fan edit made by:</b> <i>SableSteel</i>",
         "<b>With contributions from:</b>",
         "{contrib}",
@@ -19,9 +19,11 @@
         "Art is licensed under <a href=https://creativecommons.org/licenses/by-nc/4.0/legalcode>CC-BY-NC 4.0</a> "
     ],
     "contrib": {
-        "NEON PINK": "",
-        "ElectricBorealis": "Rain World themed camp",
-        "CLANGEN": "",
+        "ElectricBorealis": "-Neon Pink-<br>Rain World themed camp",
+        "Vixsia": "-Neon Pink-<br>Title artwork",
+        "Pintohop": "-Neon Pink-<br>Writing and concept assistance",
+        "Rowan": "-Neon Pink-<br>Coding assistance, concepts",
+        "Scuglat": "-Neon Pink-<br>Patrol writing, template creation, concepts",
         "anju": "-Senior Dev-<br>Creating the Original Game- Old Base Code (Clan creation, Clan screen, Timeskip, Mates and kits, StarClan), Base Sprites & Pelts, Patrol Arts, New Sprite Revisions, Shaders",
         "Archanyhm": "-Senior Dev-<br>Contributed Auto-Updater, Update-API, macOS fixes, changelog display",
         "coffee": "-Senior Dev-<br>Code, writing",

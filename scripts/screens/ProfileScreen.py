@@ -615,6 +615,19 @@ class ProfileScreen(Screens):
                     and self.the_cat.genderalign == "male"
                 ):
                     self.the_cat.genderalign = self.the_cat.gender
+                    
+                #NEONPINK INTERSEX HANDLER
+                elif (
+                    self.the_cat.gender == "intersex"
+                ):
+                    if self.the_cat.genderalign == "intersex":
+                        self.the_cat.gender_align == "trans male"
+                    if self.the_cat.genderalign == "trans male":
+                        self.the_cat.gender_align == "trans female"
+                    elif self.the_cat.genderalign == "trans female":
+                        self.the_cat.gender_align == "nonbinary"
+                    else:
+                        self.the_cat.genderalign = self.the_cat.gender
 
                 # if the cat is cis (gender & gender align are the same) then set them to trans
                 # cis males -> trans female first
@@ -636,8 +649,18 @@ class ProfileScreen(Screens):
                     self.the_cat.pronouns = [self.the_cat.default_pronouns[1].copy()]
                 elif self.the_cat.genderalign in ["male", "trans male"]:
                     self.the_cat.pronouns = [self.the_cat.default_pronouns[2].copy()]
-                elif self.the_cat.genderalign in ["nonbinary"]:
+                elif self.the_cat.genderalign in ["intersex"]:
                     self.the_cat.pronouns = [self.the_cat.default_pronouns[0].copy()]
+                elif self.the_cat.genderalign in ["nonbinary"]:
+                    pronounpref = randint(0,4)
+                    if pronounpref == 1:
+                        self.the_cat.pronouns = [self.the_cat.default_pronouns[1].copy()]
+                    elif pronounpref == 2:
+                        self.the_cat.pronouns = [self.the_cat.default_pronouns[2].copy()]
+                    elif pronounpref == 3:
+                        self.the_cat.pronouns = [self.the_cat.default_pronouns[3].copy()]
+                    else:
+                        self.the_cat.pronouns = [self.the_cat.default_pronouns[0].copy()]
                 elif self.the_cat.genderalign not in [
                     "female",
                     "trans female",
